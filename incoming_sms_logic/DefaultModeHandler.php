@@ -231,7 +231,14 @@ class DefaultModeHandler implements IncomingSmsHandler
         $regex = '/((\+?998|20|33|50|77|88|90|91|93|94|95|97|99)[\s\.\d]+\d{1})\w/';
         preg_match($regex, $message, $matches);
 
-        return $matches[0] ?? null;
+        $number = null;
+
+        if (is_string($matches[0])) {
+            // remove non digits from number
+            $number = preg_replace('/\D*/', '', $matches[0]);
+        }
+
+        return $number;
     }
 
     private function isNumberOwner(string $number, profile $profile): bool
