@@ -115,6 +115,8 @@ class DefaultModeHandler implements IncomingSmsHandler
             if ($debug_mode) {
                 echo('Sender is not the owner of the number from the message body'.PHP_EOL);
             }
+
+            return;
         }
 
         $amount_data = $databaseLayer->SELECT_SUM_Amount($source_adress);
