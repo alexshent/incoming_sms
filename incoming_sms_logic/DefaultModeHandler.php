@@ -226,14 +226,14 @@ class DefaultModeHandler implements IncomingSmsHandler
         }
     }
 
-    private function parseNumberFromMessage(string $message): ?string
+    public function parseNumberFromMessage(string $message): ?string
     {
-        $regex = '/((\+?998|20|33|50|77|88|90|91|93|94|95|97|99)[\s\.\d]+\d{1})\w/';
+        $regex = '/((\+?998|20|33|50|77|88|90|91|93|94|95|97|99)[\s\.\d]+\d{1})/';
         preg_match($regex, $message, $matches);
 
         $number = null;
 
-        if (is_string($matches[0])) {
+        if (isset($matches[0]) && is_string($matches[0])) {
             // remove non digits from number
             $number = preg_replace('/\D*/', '', $matches[0]);
         }
